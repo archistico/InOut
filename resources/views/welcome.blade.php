@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
+
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .rowFullHeight {
+            height:100vh;
+        }
+
+        .fullHeight {
+            height: 100%;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
 <div class="flex-center position-ref full-height">
@@ -20,11 +37,20 @@
         </div>
     @endif
 
-    <select name="subdivision" id="subdivision">
-        @foreach ($subdivisions as $sub)
-            <option value="{{ $sub->id }}">{{ $sub->description }} </option>
-        @endforeach
-    </select>
+    <div class="container-fluid">
+        <div class="row rowFullHeight">
+            <div class="col-sm fullHeight">
+            @foreach ($subdivisions as $sub)
+                    @if ($sub->description == 'Entrata')
+                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="\New\In">{{ $sub->description }}</a>
+                    @else
+                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="\New\Out">{{ $sub->description }}</a>
+                    @endif
+
+            @endforeach
+            </div>
+        </div>
+    </div>
 
 </div>
 </body>
