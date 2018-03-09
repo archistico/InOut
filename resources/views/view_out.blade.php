@@ -25,7 +25,7 @@
                 @foreach ($outs as $el)
 
                     <h2>{{ $el->amount }} &euro;</h2>
-                    <h4>{{ $el->date }} | {{ $el->note }}</h4>
+                    <h4>{{ Carbon\Carbon::parse($el->date)->format('d/m/Y') }} | {{ $el->note }}</h4>
                     <p>[ {{ $el->id }} ] {{ $el->macrodescription }} | {{ $el->microdescription }} | {{ $el->minidescription }}</p>
                     <hr>
                 @endforeach
