@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $subdivisions = \App\Subdivision::all();
+    return view('welcome', [ 'subdivisions' => $subdivisions]);
 });
