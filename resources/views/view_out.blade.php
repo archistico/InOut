@@ -13,14 +13,21 @@
 <body>
 <div class="flex-center position-ref full-height">
 
+    <div class="row">
+        <div class="col-sm">
+            <a href="/" class="btn btn-secondary">Nuovo movimento</a>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row rowFullHeight">
             <div class="col-sm fullHeight">
                 @foreach ($outs as $el)
 
-                    <h1>{{ $el->id }}</h1>
-                    <p>{{ $el->amount }}</p>
-
+                    <h2>{{ $el->amount }} &euro;</h2>
+                    <h4>{{ $el->date }} | {{ $el->note }}</h4>
+                    <p>[ {{ $el->id }} ] {{ $el->macrodescription }} | {{ $el->microdescription }} | {{ $el->minidescription }}</p>
+                    <hr>
                 @endforeach
             </div>
         </div>

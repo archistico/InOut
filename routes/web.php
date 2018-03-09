@@ -65,12 +65,19 @@ Route::post('/new/{subdivision}/{macro}/{micro}/{mini}', function ($subdivision,
 
     $out->save();
 
-    $outs = \App\Out::all();
-    return view('view_out', [ 'outs' => $outs]);
+    return redirect('/view');
 });
 
 Route::get('/view', function () {
-    $outs = \App\Out::all();
+    //$outs = \App\Out::all();
+
+    $outs = DB::table('outs')
+        ->join('subdivisions', 'subdivisions.id', '=', 'outs.subdivision_id')
+        ->join('macros', 'macros.id', '=', 'outs.macro_id')
+        ->join('micros', 'micros.id', '=', 'outs.micro_id')
+        ->join('minis', 'minis.id', '=', 'outs.mini_id')
+        ->select('outs.*', 'macros.description as macrodescription', 'micros.description as microdescription', 'minis.description as minidescription')
+        ->get();
 
     return view('view_out', [ 'outs' => $outs]);
 });
