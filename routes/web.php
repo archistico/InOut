@@ -11,23 +11,66 @@
 |
 */
 
+use App\Out;
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     $subdivisions = \App\Subdivision::all();
     //$subdivisions = \App\Mini::all();
     return view('welcome', [ 'subdivisions' => $subdivisions]);
 });
 
-Route::get('/New/Out', function () {
+Route::get('/new/{subdivision}', function ($subdivision) {
     $macro = \App\Macro::all();
-    return view('new_out', [ 'macro' => $macro]);
+    return view('new_out', [ 'subdivision' => $subdivision, 'macro' => $macro]);
 });
 
-Route::get('/New/Out/{macro}', function ($macro) {
+Route::get('/new/{subdivision}/{macro}', function ($subdivision, $macro) {
     $micro = \App\Micro::all();
-    return view('new_out_micro', [ 'micro' => $micro, 'macro' => $macro]);
+    return view('new_out_micro', [ 'subdivision' => $subdivision, 'micro' => $micro, 'macro' => $macro]);
 });
 
-Route::get('/New/Out/{macro}/{micro}', function ($macro, $micro) {
+Route::get('/new/{subdivision}/{macro}/{micro}', function ($subdivision, $macro, $micro) {
     $mini = DB::table('minis')->where('micro_id', $micro)->get();
-    return view('new_out_mini', [ 'micro' => $micro, 'macro' => $macro, 'mini' => $mini]);
+    return view('new_out_mini', [ 'subdivision' => $subdivision, 'micro' => $micro, 'macro' => $macro, 'mini' => $mini]);
+});
+
+Route::get('/new/{subdivision}/{macro}/{micro}/{mini}', function ($subdivision, $macro, $micro, $mini) {
+    $subdivision = DB::table('subdivisions')->where('id', $subdivision)->get();
+    $macro = DB::table('macros')->where('id', $macro)->get();
+    $micro = DB::table('micros')->where('id', $micro)->get();
+    $mini = DB::table('minis')->where('id', $mini)->get();
+    return view('new_out_amount', [ 'subdivision' => $subdivision[0], 'micro' => $micro[0], 'macro' => $macro[0], 'mini' => $mini[0]]);
+});
+
+Route::post('/new/{subdivision}/{macro}/{micro}/{mini}', function ($subdivision, $macro, $micro, $mini, Request $req) {
+    $subdivision = DB::table('subdivisions')->where('id', $subdivision)->get();
+    $macro = DB::table('macros')->where('id', $macro)->get();
+    $micro = DB::table('micros')->where('id', $micro)->get();
+    $mini = DB::table('minis')->where('id', $mini)->get();
+
+    $amount = $req->input('amount');
+    $note = $req->input('note');
+    $date = $req->input('date');
+
+    $out = new Out();
+
+    $out->subdivision_id = $subdivision[0]->id;
+    $out->macro_id = $macro[0]->id;
+    $out->micro_id = $micro[0]->id;
+    $out->mini_id = $mini[0]->id;
+    $out->amount = $amount;
+    $out->note = $note;
+    $out->date = $date;
+
+    $out->save();
+
+    $outs = \App\Out::all();
+    return view('view_out', [ 'outs' => $outs]);
+});
+
+Route::get('/view', function () {
+    $outs = \App\Out::all();
+
+    return view('view_out', [ 'outs' => $outs]);
 });

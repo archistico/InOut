@@ -16,7 +16,7 @@
 
         .fullHeight {
             height: 100%;
-            min-height: 100px;
+
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -42,7 +42,7 @@
             <div class="col-sm fullHeight">
                 @foreach ($macro as $sub)
 
-                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="\New\Out\{{ $sub->id }}">{{ $sub->description }}</a>
+                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="/new/{{ $subdivision }}/{{ $sub->id }}">{{ $sub->description }}</a>
 
 
                 @endforeach

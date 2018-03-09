@@ -16,7 +16,7 @@
 
         .fullHeight {
             height: 100%;
-            min-height: 100px;
+
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -40,14 +40,11 @@
     <div class="container-fluid">
         <div class="row rowFullHeight">
             <div class="col-sm fullHeight">
-            @foreach ($subdivisions as $sub)
-                    @if ($sub->description == 'Entrata')
-                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="\New\In">{{ $sub->description }}</a>
-                    @else
-                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="\New\Out">{{ $sub->description }}</a>
-                    @endif
+                @foreach ($subdivisions as $sub)
 
-            @endforeach
+                    <a class="btn btn-dark btn-lg btn-block fullHeight" href="/new/{{ $sub->id }}">{{ $sub->description }}</a>
+
+                @endforeach
             </div>
         </div>
     </div>

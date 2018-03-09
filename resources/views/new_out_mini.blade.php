@@ -41,7 +41,7 @@
             <div class="col-sm fullHeight">
                 @foreach ($mini as $sub)
 
-                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="\New\Out\{{ $macro }}\{{ $micro }}\{{ $sub->id }}">{{ $sub->description }}</a>
+                        <a class="btn btn-dark btn-lg btn-block fullHeight" href="\new\{{ $subdivision }}\{{ $macro }}\{{ $micro }}\{{ $sub->id }}">{{ $sub->description }}</a>
 
                 @endforeach
             </div>

@@ -15,6 +15,6 @@ class OutTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Out::truncate();
 
-        factory(Out::class, 150)->create();
+        factory(Out::class, 5)->create();
     }
 }

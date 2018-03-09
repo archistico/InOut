@@ -23,7 +23,7 @@ class CreateOutsTable extends Migration
 
             $table->date('date');
             $table->decimal('amount', 10, 2);
-            $table->string('note',128);
+            $table->string('note',128)->nullable();
 
             $table->timestamps();
 
