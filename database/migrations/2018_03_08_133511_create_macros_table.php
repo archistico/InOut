@@ -15,6 +15,8 @@ class CreateMacrosTable extends Migration
     {
         Schema::create('macros', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('subdivision_id')->unsigned();
+            $table->foreign('subdivision_id')->references('id')->on('subdivisions')->onDelete('cascade')->onUpdate('cascade');
             $table->string('description', 50);
             $table->timestamps();
         });

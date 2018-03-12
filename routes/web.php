@@ -81,3 +81,6 @@ Route::get('/view', function () {
 
     return view('view_out', [ 'outs' => $outs]);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

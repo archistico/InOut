@@ -15,6 +15,8 @@ class CreateMicrosTable extends Migration
     {
         Schema::create('micros', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('macro_id')->unsigned();
+            $table->foreign('macro_id')->references('id')->on('macros')->onDelete('cascade')->onUpdate('cascade');
             $table->string('description', 30);
             $table->timestamps();
         });
